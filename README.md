@@ -50,3 +50,38 @@
 >混合过关实例：40:190225-001(3);40:190225-002(3)  2串1
 40:190225-001(3) 玩法id:赛程日期-场次(投注内容)
 
+###  调用实例
+
+```golang
+package main
+
+import (
+	"fmt"
+	"github.com/loticket/verifyjc"
+)
+
+func main() {
+	vv := verifyjc.PlayBase{
+		Lotnum:   "40:190304-001(3);40:190304-002(0,1);40:190304-003(1);40:190304-004(1);41:190304-004(3);41:190304-005(3);40:190304-005(1)",
+		Money:    14800,
+		Multiple: 100, //倍数
+		BetNum:   74,
+		Lotid:    45,
+		Playtype: "5_1^3_1^4_1",
+		Dan:      "",
+	}
+
+	jc := verifyjc.PlayJingcai{}
+
+	jc.SetTikcetStruct(&vv)
+
+	err, ticket, single := jc.Verification()
+	fmt.Println(ticket) //拆票数组
+	fmt.Println(err)    //验证错误
+	fmt.Println(single) //是否为单关
+
+}
+
+
+```
+
